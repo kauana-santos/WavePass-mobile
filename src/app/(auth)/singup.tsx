@@ -4,8 +4,8 @@ import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "reac
 export default function singup() {
   return (
     <View style={style.container}>
-        <View>
-            <Image/>
+        <View style={style.containerImage}>
+            <Image source={require('@/assets/logo.png')}/>
         </View>
 
         <View style={style.containerForm}>
@@ -39,11 +39,16 @@ const style = StyleSheet.create({
     container:{
         flex:1,
         backgroundColor: "#F5E6C8",
-        alignItems: "center"
+        alignItems: "center",
+        justifyContent:"center"
         
+    },
+    containerImage:{
+        height:130
     },
     containerForm:{
         marginHorizontal: 10,
+        marginVertical:20,
         padding: 5
     },
     inputContainer:{
@@ -68,16 +73,18 @@ const style = StyleSheet.create({
     },
     btn:{
         backgroundColor: "#722F37",
-        paddingHorizontal: 70,
+        width: 290,
         paddingVertical: 9,
         borderWidth: 1,
         borderColor: "#3F3F3F",
         borderRadius: 2
     },
+    
     btnText:{
         color: "#fff",
-        fontSize: 20,
-        fontWeight: "500"
+        fontSize: 18,
+        fontWeight: "500",
+        textAlign: "center"
     },
     textSingup:{
         marginTop: 6,
