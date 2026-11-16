@@ -1,5 +1,4 @@
-import { Background } from "expo-router/build/react-navigation/index.js";
-import { Image, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function login() {
   return (
