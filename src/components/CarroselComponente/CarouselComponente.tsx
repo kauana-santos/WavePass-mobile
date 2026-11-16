@@ -14,7 +14,7 @@ interface CarouselComponenteProps<T> {
 export default function CarouselComponente<T>({
   data,
   renderItem,
-  height = 150,
+  height = 350,
   autoPlay = true,
   loop = true,
 }: CarouselComponenteProps<T>) {
@@ -24,7 +24,7 @@ export default function CarouselComponente<T>({
       <Carousel
         data={data}
         renderItem={renderItem}
-        style={{ height }}
+        style={{height}}
         autoplay={autoPlay}
         autoplayInterval={3000}
         loop={loop}
