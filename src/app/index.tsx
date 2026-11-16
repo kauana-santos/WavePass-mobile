@@ -1,7 +1,11 @@
 
 import CarouselComponente from "@/components/CarouselComponente";
-import { Text, View, ScrollView } from "react-native";
+import CategoriaCard from "@/components/CategoriaCard/CategoriaCard";
+import { Text, View, ScrollView, Image } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { FontAwesome6 } from "@react-native-vector-icons/fontawesome6";
+import MarqueeComponente from "@/components/Marquee/MarqueeComponente";
+
 
 const data = ["item1", "item2", "item3"];
 
@@ -11,8 +15,11 @@ export default function Index() {
       <ScrollView>
         <View>
           <View>
-            <Text>Logo</Text>
+            <Image source={require('@/assets/logo.png')}/>
           </View>
+
+          <MarqueeComponente/>
+
           <CarouselComponente
             data={data}
             height={100}
@@ -24,18 +31,16 @@ export default function Index() {
             )}
           />
 
-          <Text>Carrossel 2</Text>
+          <View>
+            <Text>Categorias</Text>
+            <CategoriaCard categoryName="Festas" icon={<FontAwesome6
+              name="champagne-glasses"
+              size={30}
+              color="#000"
+              iconStyle="solid"
+            />}/>
+          </View>
 
-          <CarouselComponente
-            data={data}
-            height={200}
-            renderItem={({ item }) => (
-              <View>
-                <Text>{item}</Text>
-              </View>
-            )}
-          />
-          
         </View>
       </ScrollView>
     </GestureHandlerRootView>

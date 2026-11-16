@@ -28,6 +28,10 @@ export default function CarouselComponente<T>({
         autoplay={autoPlay}
         autoplayInterval={3000}
         loop={loop}
+        animation={{
+          type: "timing",
+          duration: 5000,
+        }}
       />
     </View>
   );
