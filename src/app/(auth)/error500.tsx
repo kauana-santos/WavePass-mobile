@@ -5,12 +5,12 @@ export default function error404() {
   return (
     <View style={styles.container}>
         <View style={styles.containerImage}>
-            <Image source={require('@/assets/images/error-page-500.png')}/>
+            <Image style={styles.img}source={require('@/assets/images/error-page-500.png')}/>
         </View>
 
         <View>
             <View>
-                <Text style={styles.texto}>Ops! Algo quebrou por aqui (Erro 500)</Text>
+                <Text style={styles.texto}>Ops!{"\n"}Algo quebrou por aqui{"\n"}(Erro 500)</Text>
             </View>
 
             <View>
@@ -31,10 +31,20 @@ const styles = StyleSheet.create({
         justifyContent:"center"
     },
     containerImage: {
-        height: 300,
+        height: 300
+    },
+    img: {
+        width: 300,
+        height: 300
     },
     texto: {
-        fontFamily: "caprasimo",
+        marginTop: 5,
+        textAlign: "center",
+        fontFamily: fonts.caprasimo,
+        fontSize: 18
+    },
+    btnContainer: {
+        alignItems: "center"
     },
     btnPg: {
         marginTop: 20,
@@ -49,8 +59,6 @@ const styles = StyleSheet.create({
     btnTexto: {
         fontSize: 18,
         color: "#fff",
-        fontWeight: "500",
+        fontFamily: fonts.caprasimo,
     },
-
-
 })

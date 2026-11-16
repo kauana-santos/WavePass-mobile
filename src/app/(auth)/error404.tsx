@@ -5,15 +5,15 @@ export default function error404() {
   return (
     <View style={styles.container}>
         <View style={styles.containerImage}>
-            <Image source={require('@/assets/images/not-found-404.png')}/>
+            <Image style={styles.img} source={require('@/assets/images/not-found-404.png')}/>
         </View>
 
         <View>
             <View>
-                <Text style={styles.texto}>Ops! Algo não está certo com este link (Erro 404)</Text>
+                <Text style={styles.texto}>Ops! {"\n"}Algo não está certo com este link {"\n"}(Erro 404)</Text>
             </View>
 
-            <View>
+            <View style={styles.btnContainer}>
                 <Pressable style={styles.btnPg}>
                     <Text style={styles.btnTexto}>Página Inicial</Text>
                 </Pressable>
@@ -31,10 +31,20 @@ const styles = StyleSheet.create({
         justifyContent:"center"
     },
     containerImage: {
-        height: 300,
+        height: 300
+    },
+    img: {
+        width: 300,
+        height: 300
     },
     texto: {
+        marginTop: 5,
+        textAlign: "center",
         fontFamily: fonts.caprasimo,
+        fontSize: 18
+    },
+    btnContainer: {
+        alignItems: "center"
     },
     btnPg: {
         marginTop: 20,
@@ -49,6 +59,6 @@ const styles = StyleSheet.create({
     btnTexto: {
         fontSize: 18,
         color: "#fff",
-        fontFamily: fonts.dmSansMedium,
+        fontFamily: fonts.caprasimo,
     },
 })
