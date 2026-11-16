@@ -41,7 +41,6 @@ const style = StyleSheet.create({
         backgroundColor: "#F5E6C8",
         alignItems: "center",
         justifyContent:"center"
-        
     },
     containerImage:{
         height:130
@@ -88,11 +87,7 @@ const style = StyleSheet.create({
     },
     textSingup:{
         marginTop: 6,
-        fontSize: 14
-        
+        fontSize: 14  
     }
-    
-
-    
 
 })
