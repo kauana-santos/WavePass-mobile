@@ -1,5 +1,6 @@
 import { Marquee } from "@animatereactnative/marquee";
 import { View, Text, StyleSheet } from "react-native";
+import { fonts } from '@/styles/globalStyles'
 
 const categorias = [
   "Shows",
@@ -50,6 +51,7 @@ const styles = StyleSheet.create({
   },
 
   texto: {
+    fontFamily: fonts.caprasimo,
     color: "#F5E6C8",
     fontSize: 20,
     fontWeight: "900",

@@ -5,6 +5,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { FontAwesome6 } from "@react-native-vector-icons/fontawesome6";
 import MarqueeComponente from "@/components/Marquee/MarqueeComponente";
 import CarouselComponente from "@/components/CarroselComponente/CarouselComponente";
+import EventoCard from "@/components/EventoCard/EventoCard";
 
 
 const data = ["Wicked: A História Não Contada Das Bruxas de Oz", "item2", "item3"];
@@ -26,8 +27,11 @@ export default function Index() {
             autoPlay
             renderItem={({ item }) => (
               <View style={styles.containerCarrosel}>
+                
                 <Image style={styles.CarroselImg} source={{uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStoifDEIk97WuePRZ4WpOzsZo7QxMDy4xQC7z3_6NQDogYtOo8N6o_-Ek&s=10"}}/>
+
                 <Text style={styles.carroselText}>{item}</Text>
+
                 <Text style={styles.carroselText}>Local . Horário . Data</Text>
 
               </View>
@@ -36,14 +40,25 @@ export default function Index() {
 
           <View>
             <Text>Categorias</Text>
-            <CategoriaCard categoryName="Festas" icon={<FontAwesome6
-              name="champagne-glasses"
-              size={30}
-              color="#000"
-              iconStyle="solid"
-            />}/>
+            <View style={styles.containerCategorias}>
+              <CategoriaCard categoryName="Festas" icon={<FontAwesome6
+                name="champagne-glasses"
+                size={30}
+                color="#000"
+                iconStyle="solid"
+              />}/>
+            </View>
           </View>
-          
+        </View>
+
+        <View>
+          <Text>Eventos</Text>
+
+
+          <View style={styles.containerEventos}>
+            <EventoCard/>
+            <EventoCard/>
+          </View>
         </View>
       </ScrollView>
     </GestureHandlerRootView>
@@ -77,5 +92,16 @@ const styles = StyleSheet.create({
   },
   carroselText:{
     textAlign: "center"
+  },
+  containerCategorias:{
+    flexDirection: "row",
+    marginHorizontal: 20,
+    marginVertical: 10
+  },
+  containerEventos:{
+    alignItems: "center",
+    justifyContent: "center",
+    marginHorizontal: 20,
+    marginVertical: 10
   }
 })
