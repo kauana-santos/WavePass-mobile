@@ -8,6 +8,7 @@ import CarouselComponente from "@/components/CarroselComponente/CarouselComponen
 import EventoCard from "@/components/EventoCard/EventoCard";
 import { fonts } from '@/styles/globalStyles'
 import Header from "@/components/Header/Header";
+import Menu from '@/components/Menu'
 
 
 const data = ["Wicked: A História Não Contada Das Bruxas de Oz", "item2", "item3"];
@@ -60,6 +61,7 @@ export default function Index() {
           </View>
         </View>
       </ScrollView>
+      <Menu/>
     </GestureHandlerRootView>
   );
 }
