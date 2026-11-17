@@ -7,6 +7,7 @@ import MarqueeComponente from "@/components/Marquee/MarqueeComponente";
 import CarouselComponente from "@/components/CarroselComponente/CarouselComponente";
 import EventoCard from "@/components/EventoCard/EventoCard";
 import { fonts } from '@/styles/globalStyles'
+import Header from "@/components/Header/Header";
 
 
 const data = ["Wicked: A História Não Contada Das Bruxas de Oz", "item2", "item3"];
@@ -16,9 +17,7 @@ export default function Index() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ScrollView>
         <View>
-          <View style={styles.containerImg}>
-            <Image style={styles.logo} source={require('@/assets/logo.png')}/>
-          </View>
+          <Header/>
 
           <MarqueeComponente/>
 
@@ -55,7 +54,6 @@ export default function Index() {
         <View>
           <Text style={styles.titulo}>Eventos</Text>
 
-
           <View style={styles.containerEventos}>
             <EventoCard/>
             <EventoCard/>
@@ -67,17 +65,6 @@ export default function Index() {
 }
 
 const styles = StyleSheet.create({
-  containerImg:{
-    height:60,
-    backgroundColor: "#F5E6C8",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  logo:{
-    width: 160,
-    height: 70,
-    resizeMode: "contain",
-  },
   carrosel:{
     marginVertical:20
   },
