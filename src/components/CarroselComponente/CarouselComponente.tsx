@@ -1,5 +1,5 @@
 
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { ReactElement } from "react";
 import { Carousel } from "react-native-reanimated-carousel";
 
@@ -20,7 +20,7 @@ export default function CarouselComponente<T>({
 }: CarouselComponenteProps<T>) {
 
   return (
-    <View>
+    <View style={styles.container}>
       <Carousel
         data={data}
         renderItem={renderItem}
@@ -36,3 +36,9 @@ export default function CarouselComponente<T>({
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    marginHorizontal: 10
+  }
+})

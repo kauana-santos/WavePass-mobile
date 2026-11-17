@@ -1,4 +1,5 @@
 import { Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { fonts } from '@/styles/globalStyles'
 
 export default function login() {
   return (
@@ -77,6 +78,7 @@ const styles = StyleSheet.create({
         borderColor: "#3f3f3f",
     },
     btnTexto: {
+        fontFamily: fonts.caprasimo,
         fontSize: 18,
         color: "#fff",
         fontWeight: "500",
