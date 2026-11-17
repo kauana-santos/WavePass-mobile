@@ -1,5 +1,5 @@
 import { Link } from "expo-router";
-import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { fonts } from '@/styles/globalStyles'
 
 export default function singup() {
@@ -27,9 +27,9 @@ export default function singup() {
         </View>
 
         <View style={style.containerBtn}>
-            <TouchableOpacity style={style.btn}>
+            <Pressable style={style.btn}>
                 <Text style={style.btnText}>Cadastrar</Text>
-            </TouchableOpacity>
+            </Pressable>
             <Text style={style.textSingup}>Já tem conta? <Link href="/login">Faça login</Link></Text>
         </View>
     </View>

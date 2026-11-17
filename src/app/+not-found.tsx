@@ -1,8 +1,9 @@
 import { Image, Text, View, Pressable, StyleSheet } from 'react-native'
 import { fonts } from '@/styles/globalStyles'
 import Header from '@/components/Header/Header'
+import { Link } from 'expo-router'
 
-export default function error404() {
+export default function Notfound() {
   return (
     <View style={styles.container}>
         <Header/>
@@ -15,9 +16,11 @@ export default function error404() {
                     <Text style={styles.texto}>Ops! {"\n"}Algo não está certo com este link {"\n"}(Erro 404)</Text>
                 </View>
                 <View style={styles.btnContainer}>
-                    <Pressable style={styles.btnPg}>
-                        <Text style={styles.btnTexto}>Página Inicial</Text>
-                    </Pressable>
+                    <Link href="/">
+                        <View style={styles.btnPg}>
+                            <Text style={styles.btnTexto}>Página Inicial</Text>
+                        </View>
+                    </Link>
                 </View>
             </View>
         </View>
