@@ -1,5 +1,6 @@
 import { Link } from "expo-router";
 import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { fonts } from '@/styles/globalStyles'
 
 export default function singup() {
   return (
@@ -40,7 +41,8 @@ const style = StyleSheet.create({
         flex:1,
         backgroundColor: "#F5E6C8",
         alignItems: "center",
-        justifyContent:"center"
+        justifyContent:"center",
+        fontFamily: fonts.dmSans
     },
     containerImage:{
         height:130
@@ -80,6 +82,7 @@ const style = StyleSheet.create({
     },
     
     btnText:{
+        fontFamily: fonts.caprasimo,
         color: "#fff",
         fontSize: 18,
         fontWeight: "500",
