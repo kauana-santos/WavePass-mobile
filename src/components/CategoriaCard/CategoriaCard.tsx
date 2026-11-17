@@ -18,8 +18,8 @@ export default function CategoriaCard({ icon, categoryName }: CardProps) {
 
 const style = StyleSheet.create({
   containerCategory:{
-    height: 90,
-    width: 90,
+    height: 100,
+    width: 100,
     backgroundColor: "#f5f5f5",
     alignItems: "center",
     justifyContent: "center",
