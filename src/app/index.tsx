@@ -1,32 +1,35 @@
 
-import CarouselComponente from "@/components/CarouselComponente";
 import CategoriaCard from "@/components/CategoriaCard/CategoriaCard";
-import { Text, View, ScrollView, Image } from "react-native";
+import { Text, View, ScrollView, Image, StyleSheet } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { FontAwesome6 } from "@react-native-vector-icons/fontawesome6";
 import MarqueeComponente from "@/components/Marquee/MarqueeComponente";
+import CarouselComponente from "@/components/CarroselComponente/CarouselComponente";
 
 
-const data = ["item1", "item2", "item3"];
+const data = ["Wicked: A História Não Contada Das Bruxas de Oz", "item2", "item3"];
 
 export default function Index() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ScrollView>
         <View>
-          <View>
-            <Image source={require('@/assets/logo.png')}/>
+          <View style={styles.containerImg}>
+            <Image style={styles.logo} source={require('@/assets/logo.png')}/>
           </View>
 
           <MarqueeComponente/>
 
-          <CarouselComponente
+          <CarouselComponente 
             data={data}
-            height={100}
+            height={250}
             autoPlay
             renderItem={({ item }) => (
-              <View>
-                <Text>{item}</Text>
+              <View style={styles.containerCarrosel}>
+                <Image style={styles.CarroselImg} source={{uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStoifDEIk97WuePRZ4WpOzsZo7QxMDy4xQC7z3_6NQDogYtOo8N6o_-Ek&s=10"}}/>
+                <Text style={styles.carroselText}>{item}</Text>
+                <Text style={styles.carroselText}>Local . Horário . Data</Text>
+
               </View>
             )}
           />
@@ -40,9 +43,39 @@ export default function Index() {
               iconStyle="solid"
             />}/>
           </View>
-
+          
         </View>
       </ScrollView>
     </GestureHandlerRootView>
   );
 }
+
+const styles = StyleSheet.create({
+  containerImg:{
+    height:60,
+    backgroundColor: "#F5E6C8",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  logo:{
+    width: 160,
+    height: 70,
+    resizeMode: "contain",
+  },
+  carrosel:{
+    marginVertical:20
+  },
+  containerCarrosel: {
+    height: 350,
+    width: "100%",
+    textAlign: "center"
+  },
+  CarroselImg: {
+    height: 190,
+    width: "100%",
+    resizeMode: "cover",
+  },
+  carroselText:{
+    textAlign: "center"
+  }
+})
