@@ -1,9 +1,9 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { fonts } from '@/styles/globalStyles'
 
 export default function EventoCard() {
   return (
-    <View style={styles.containerEvento}>
+    <Pressable style={styles.containerEvento}>
       <View>
         <Image style={styles.eventoImg} source={{uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStoifDEIk97WuePRZ4WpOzsZo7QxMDy4xQC7z3_6NQDogYtOo8N6o_-Ek&s=10"}}/>
       </View>
@@ -12,7 +12,7 @@ export default function EventoCard() {
           <Text style={styles.descricao}>São Paulo</Text>
           <Text style={styles.descricao}>06/01/2027</Text>
         </View>
-    </View>
+    </Pressable>
   )
 }
 
@@ -43,7 +43,5 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginVertical:4
   }
-
-
   
 })

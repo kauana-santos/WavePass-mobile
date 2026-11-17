@@ -6,6 +6,7 @@ import { FontAwesome6 } from "@react-native-vector-icons/fontawesome6";
 import MarqueeComponente from "@/components/Marquee/MarqueeComponente";
 import CarouselComponente from "@/components/CarroselComponente/CarouselComponente";
 import EventoCard from "@/components/EventoCard/EventoCard";
+import { fonts } from '@/styles/globalStyles'
 
 
 const data = ["Wicked: A História Não Contada Das Bruxas de Oz", "item2", "item3"];
@@ -39,7 +40,7 @@ export default function Index() {
           />
 
           <View>
-            <Text>Categorias</Text>
+            <Text style={styles.titulo}>Categorias</Text>
             <View style={styles.containerCategorias}>
               <CategoriaCard categoryName="Festas" icon={<FontAwesome6
                 name="champagne-glasses"
@@ -52,7 +53,7 @@ export default function Index() {
         </View>
 
         <View>
-          <Text>Eventos</Text>
+          <Text style={styles.titulo}>Eventos</Text>
 
 
           <View style={styles.containerEventos}>
@@ -91,7 +92,10 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
   },
   carroselText:{
-    textAlign: "center"
+    textAlign: "center",
+    fontFamily: fonts.dmSans,
+    fontSize: 15,
+    marginVertical: 5
   },
   containerCategorias:{
     flexDirection: "row",
@@ -103,5 +107,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginHorizontal: 20,
     marginVertical: 10
+  },
+  titulo:{
+    fontFamily: fonts.dmSansMedium,
+    fontSize: 20,
+    marginLeft: 15
+
   }
 })
