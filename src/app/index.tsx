@@ -2,7 +2,6 @@
 import CategoriaCard from "@/components/CategoriaCard/CategoriaCard";
 import { Text, View, ScrollView, Image, StyleSheet } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { FontAwesome6 } from "@react-native-vector-icons/fontawesome6";
 import MarqueeComponente from "@/components/Marquee/MarqueeComponente";
 import CarouselComponente from "@/components/CarroselComponente/CarouselComponente";
 import EventoCard from "@/components/EventoCard/EventoCard";
@@ -42,12 +41,7 @@ export default function Index() {
           <View>
             <Text style={styles.titulo}>Categorias</Text>
             <View style={styles.containerCategorias}>
-              <CategoriaCard categoryName="Festas" icon={<FontAwesome6
-                name="champagne-glasses"
-                size={30}
-                color="#000"
-                iconStyle="solid"
-              />}/>
+              <CategoriaCard categoryName="Festas" icon={require("@/assets/images/DISCO.png")}/>
             </View>
           </View>
         </View>

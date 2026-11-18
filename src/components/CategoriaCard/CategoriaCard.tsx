@@ -1,8 +1,9 @@
 import { ReactNode } from "react";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { Image, ImageSource, Pressable, StyleSheet, Text, View } from "react-native";
+import { fonts } from '@/styles/globalStyles'
 
 interface CardProps{
-    icon: ReactNode;
+    icon: ImageSource;
     categoryName: string
 
 }
@@ -10,21 +11,29 @@ interface CardProps{
 export default function CategoriaCard({ icon, categoryName }: CardProps) {
   return (
     <Pressable style={style.containerCategory}>
-      {icon}
-      <Text>{categoryName}</Text>
+      <Image source={icon}/>
+      <Text style={style.texto}>{categoryName}</Text>
     </Pressable>
   )
 }
 
 const style = StyleSheet.create({
   containerCategory:{
-    height: 100,
-    width: 100,
+    height: 150,
+    width: 130,
     backgroundColor: "#f5f5f5",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 5,
     borderWidth: 1,
     borderColor: "#3F3F3F"
+  },
+  iconImg:{
+    height:30,
+    width:30
+  },
+  texto:{
+    fontFamily: fonts.caprasimo,
+    fontSize: 19
   }
 })
