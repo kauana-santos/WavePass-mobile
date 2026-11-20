@@ -50,6 +50,20 @@ export default function Tabslayout() {
                 ),
             }}
         />
+
+        <Tabs.Screen
+            name='Usuario'
+            options={{
+                title: 'Usuario',
+                tabBarIcon: () =>{
+                    <Feather
+                    name="user"
+                    size={30}
+                    color="#000"
+                    />
+                }
+            }}
+        />
     </Tabs>
   )
 }
