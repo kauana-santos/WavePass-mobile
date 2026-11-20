@@ -1,12 +1,14 @@
 import { Tabs } from 'expo-router';
 import { Image } from 'react-native';
 import { Foundation } from "@react-native-vector-icons/foundation";
+import { Feather } from "@react-native-vector-icons/feather";
 
 export default function Tabslayout() {
   return (
     <Tabs
         screenOptions={{
         headerShown: false,
+        // retirar comentario quando ajustar o icon da home - tabBarShowLabel: false,
         tabBarActiveTintColor: '#722F37',
         tabBarInactiveTintColor: '#999999',
 
@@ -21,7 +23,7 @@ export default function Tabslayout() {
             name='index'
             options={{
                 title: 'Home',
-                tabBarIcon: ({color, size}) =>{
+                tabBarIcon: () =>{
                     <Foundation 
                         name="home"
                         size={30}
@@ -32,16 +34,16 @@ export default function Tabslayout() {
         />
 
         <Tabs.Screen
-            name="chatbot"
+            name="Chatbot"
             options={{
                 title: 'Chatbot',
 
-                tabBarIcon: ({ size }) => (
+                tabBarIcon: () => (
                 <Image
                     source={require('@/assets/images/ticket.png')}
                     style={{
-                    width: size,
-                    height: size,
+                    width: 50,
+                    height: 50,
                     resizeMode: 'contain',
                     }}
                 />
