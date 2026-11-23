@@ -5,14 +5,16 @@ import { Feather } from "@react-native-vector-icons/feather";
 
 export default function Tabslayout() {
   return (
-    <Tabs
+    <Tabs 
         screenOptions={{
+        
         headerShown: false,
-        // retirar comentario quando ajustar o icon da home - tabBarShowLabel: false,
+        tabBarShowLabel: false,
         tabBarActiveTintColor: '#722F37',
         tabBarInactiveTintColor: '#999999',
 
         tabBarStyle: {
+          backgroundColor: "#f5e6c8",
           height: 65,
           paddingBottom: 8,
           paddingTop: 8,
@@ -23,13 +25,13 @@ export default function Tabslayout() {
             name='index'
             options={{
                 title: 'Home',
-                tabBarIcon: () =>{
+                tabBarIcon: () =>(
                     <Foundation 
                         name="home"
                         size={30}
-                        color={"#333"}
+                        color={"#181818"}
                     />
-                }
+                )
             }}
         />
 
@@ -55,13 +57,13 @@ export default function Tabslayout() {
             name='Usuario'
             options={{
                 title: 'Usuario',
-                tabBarIcon: () =>{
+                tabBarIcon: () =>(
                     <Feather
                     name="user"
                     size={30}
-                    color="#000"
+                    color="#181818"
                     />
-                }
+                )
             }}
         />
     </Tabs>
