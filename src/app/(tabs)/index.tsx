@@ -11,14 +11,13 @@ import Header from "@/components/Header/Header";
 
 const data = ["Wicked: A História Não Contada Das Bruxas de Oz", "item2", "item3"];
 const categorias = [
-  { id: 1, nome: "Shows", imagem: "" },
-  { id: 2, nome: "Festas", imagem: "@/assets/images/DISCO.png" },
-  { id: 3, nome: "Teatros", imagem: "" },
-  { id: 4, nome: "Exposições", imagem: "" },
-  { id: 5, nome: "Jogos", imagem: "" },
-  { id: 6, nome: "Filmes", imagem: "" },
-  { id: 7, nome: "Gastronomia", imagem: "" },
-  { id: 8, nome: "Feiras", imagem: "" }
+  { id: 1, nome: "Shows", imagem: require("@/assets/images/mascotes/shows.png") },
+  { id: 2, nome: "Festas", imagem: require("@/assets/images/mascotes/DISCO.png") },
+  { id: 3, nome: "Teatros", imagem: require("@/assets/images/mascotes/teatro.png") },
+  { id: 4, nome: "Exposições", imagem: require("@/assets/images/mascotes/artes.png") },
+  { id: 5, nome: "Jogos", imagem: require("@/assets/images/mascotes/jogos.png") },
+  { id: 6, nome: "Filmes", imagem: require("@/assets/images/mascotes/cinema.png") },
+  { id: 7, nome: "Gastronomia", imagem: require("@/assets/images/mascotes/gastronomia.png") },
 ];
 
 export default function Index() {
@@ -55,7 +54,6 @@ export default function Index() {
               {categorias.map((cat) => (
                 <CategoriaCard key={cat.id} categoryName={cat.nome} icon={cat.imagem}/>
               ))}
-              <CategoriaCard categoryName="Festas" icon={require("@/assets/images/DISCO.png")}/>
             </ScrollView>
           </View>
         </View>

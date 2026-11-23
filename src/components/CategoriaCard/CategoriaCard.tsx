@@ -10,7 +10,7 @@ interface CardProps{
 export default function CategoriaCard({ icon, categoryName }: CardProps) {
   return (
     <Pressable style={style.containerCategory}>
-      <Image source={icon}/>
+      <Image style={style.iconImg} source={icon}/>
       <Text style={style.texto}>{categoryName}</Text>
     </Pressable>
   );
@@ -29,8 +29,8 @@ const style = StyleSheet.create({
     borderColor: "#3F3F3F"
   },
   iconImg:{
-    height:30,
-    width:30
+    height:100,
+    width:100
   },
   texto:{
     fontFamily: fonts.caprasimo,
