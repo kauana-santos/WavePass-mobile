@@ -12,6 +12,16 @@ import Menu from '@/components/Menu'
 
 
 const data = ["Wicked: A História Não Contada Das Bruxas de Oz", "item2", "item3"];
+const categorias = [
+  { id: 1, nome: "Shows", imagem: "" },
+  { id: 2, nome: "Festas", imagem: "@/assets/images/DISCO.png" },
+  { id: 3, nome: "Teatros", imagem: "" },
+  { id: 4, nome: "Exposições", imagem: "" },
+  { id: 5, nome: "Jogos", imagem: "" },
+  { id: 6, nome: "Filmes", imagem: "" },
+  { id: 7, nome: "Gastronomia", imagem: "" },
+  { id: 8, nome: "Feiras", imagem: "" }
+];
 
 export default function Index() {
   return (
@@ -24,7 +34,8 @@ export default function Index() {
 
           <CarouselComponente 
             data={data}
-            height={250}
+            height={300}
+            width={320}
             autoPlay
             renderItem={({ item }) => (
               <View style={styles.containerCarrosel}>
@@ -41,14 +52,13 @@ export default function Index() {
 
           <View>
             <Text style={styles.titulo}>Categorias</Text>
-            <View style={styles.containerCategorias}>
-              <CategoriaCard categoryName="Festas" icon={<FontAwesome6
-                name="champagne-glasses"
-                size={30}
-                color="#000"
-                iconStyle="solid"
-              />}/>
-            </View>
+            
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.containerCategorias}>
+              {categorias.map((cat) => (
+                <CategoriaCard key={cat.id} categoryName={cat.nome} icon={cat.imagem}/>
+              ))}
+              <CategoriaCard categoryName="Festas" icon={require("@/assets/images/DISCO.png")}/>
+            </ScrollView>
           </View>
         </View>
 
