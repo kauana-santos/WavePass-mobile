@@ -1,42 +1,38 @@
+import { ReactNode } from "react";
+import { Image, ImageSource, Pressable, StyleSheet, Text, View } from "react-native";
+import { fonts } from '@/styles/globalStyles'
 
-import { Image, Pressable, StyleSheet, Text } from "react-native";
-
-interface CardProps {
-  icon: any;
-  categoryName: string;
+interface CardProps{
+    icon: any;
+    categoryName: string
 }
 
 export default function CategoriaCard({ icon, categoryName }: CardProps) {
   return (
-    <Pressable style={styles.containerCategory}>
-      {icon && (
-        <Image
-          source={icon}
-          style={styles.categoryImage}
-          resizeMode="contain"
-        />
-      )}
-
-      <Text>{categoryName}</Text>
+    <Pressable style={style.containerCategory}>
+      <Image source={icon}/>
+      <Text style={style.texto}>{categoryName}</Text>
     </Pressable>
   );
 }
 
-const styles = StyleSheet.create({
-  containerCategory: {
+const style = StyleSheet.create({
+  containerCategory:{
     height: 150,
     width: 130,
-    marginHorizontal: 10,
     backgroundColor: "#f5f5f5",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 5,
     borderWidth: 1,
-    borderColor: "#3F3F3F",
+    borderColor: "#3F3F3F"
   },
-
-  categoryImage: {
-    width: 70,
-    height: 70,
+  iconImg:{
+    height:30,
+    width:30
   },
-});
+  texto:{
+    fontFamily: fonts.caprasimo,
+    fontSize: 19
+  }
+})

@@ -2,13 +2,11 @@
 import CategoriaCard from "@/components/CategoriaCard/CategoriaCard";
 import { Text, View, ScrollView, Image, StyleSheet } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { FontAwesome6 } from "@react-native-vector-icons/fontawesome6";
 import MarqueeComponente from "@/components/Marquee/MarqueeComponente";
 import CarouselComponente from "@/components/CarroselComponente/CarouselComponente";
 import EventoCard from "@/components/EventoCard/EventoCard";
 import { fonts } from '@/styles/globalStyles'
 import Header from "@/components/Header/Header";
-import Menu from '@/components/Menu'
 
 
 const data = ["Wicked: A História Não Contada Das Bruxas de Oz", "item2", "item3"];
@@ -71,7 +69,6 @@ export default function Index() {
           </View>
         </View>
       </ScrollView>
-      <Menu/>
     </GestureHandlerRootView>
   );
 }

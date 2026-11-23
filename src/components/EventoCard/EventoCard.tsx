@@ -1,6 +1,16 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { fonts } from '@/styles/globalStyles'
 
+interface EventoCardProps {
+  imagem: string;
+  titulo: string;
+  local: string;
+  data: string;
+  onPress?: () => void;
+}
+
+// {imagem, titulo, local, data, onPress}: EventoCardProps
+
 export default function EventoCard() {
   return (
     <Pressable style={styles.containerEvento}>
