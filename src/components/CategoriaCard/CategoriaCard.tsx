@@ -3,24 +3,24 @@ import { Image, ImageSource, Pressable, StyleSheet, Text, View } from "react-nat
 import { fonts } from '@/styles/globalStyles'
 
 interface CardProps{
-    icon: ImageSource;
+    icon: any;
     categoryName: string
-
 }
 
 export default function CategoriaCard({ icon, categoryName }: CardProps) {
   return (
     <Pressable style={style.containerCategory}>
-      <Image source={icon}/>
+      <Image style={style.iconImg} source={icon}/>
       <Text style={style.texto}>{categoryName}</Text>
     </Pressable>
-  )
+  );
 }
 
 const style = StyleSheet.create({
   containerCategory:{
     height: 150,
     width: 130,
+    marginHorizontal:10,
     backgroundColor: "#f5f5f5",
     alignItems: "center",
     justifyContent: "center",
@@ -29,8 +29,8 @@ const style = StyleSheet.create({
     borderColor: "#3F3F3F"
   },
   iconImg:{
-    height:30,
-    width:30
+    height:100,
+    width:100
   },
   texto:{
     fontFamily: fonts.caprasimo,

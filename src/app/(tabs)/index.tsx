@@ -10,6 +10,15 @@ import Header from "@/components/Header/Header";
 
 
 const data = ["Wicked: A História Não Contada Das Bruxas de Oz", "item2", "item3"];
+const categorias = [
+  { id: 1, nome: "Shows", imagem: require("@/assets/images/mascotes/shows.png") },
+  { id: 2, nome: "Festas", imagem: require("@/assets/images/mascotes/DISCO.png") },
+  { id: 3, nome: "Teatros", imagem: require("@/assets/images/mascotes/teatro.png") },
+  { id: 4, nome: "Exposições", imagem: require("@/assets/images/mascotes/artes.png") },
+  { id: 5, nome: "Jogos", imagem: require("@/assets/images/mascotes/jogos.png") },
+  { id: 6, nome: "Filmes", imagem: require("@/assets/images/mascotes/cinema.png") },
+  { id: 7, nome: "Gastronomia", imagem: require("@/assets/images/mascotes/gastronomia.png") },
+];
 
 export default function Index() {
   return (
@@ -22,7 +31,8 @@ export default function Index() {
 
           <CarouselComponente 
             data={data}
-            height={250}
+            height={300}
+            width={360}
             autoPlay
             renderItem={({ item }) => (
               <View style={styles.containerCarrosel}>
@@ -39,9 +49,12 @@ export default function Index() {
 
           <View>
             <Text style={styles.titulo}>Categorias</Text>
-            <View style={styles.containerCategorias}>
-              <CategoriaCard categoryName="Festas" icon={require("@/assets/images/DISCO.png")}/>
-            </View>
+            
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.containerCategorias}>
+              {categorias.map((cat) => (
+                <CategoriaCard key={cat.id} categoryName={cat.nome} icon={cat.imagem}/>
+              ))}
+            </ScrollView>
           </View>
         </View>
 
