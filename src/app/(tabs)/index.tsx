@@ -33,7 +33,7 @@ export default function Index() {
           <CarouselComponente 
             data={data}
             height={300}
-            width={320}
+            width={360}
             autoPlay
             renderItem={({ item }) => (
               <View style={styles.containerCarrosel}>

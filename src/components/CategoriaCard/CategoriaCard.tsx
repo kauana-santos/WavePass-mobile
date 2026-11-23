@@ -20,6 +20,7 @@ const style = StyleSheet.create({
   containerCategory:{
     height: 150,
     width: 130,
+    marginHorizontal:10,
     backgroundColor: "#f5f5f5",
     alignItems: "center",
     justifyContent: "center",
