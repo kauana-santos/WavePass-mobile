@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
         height: 300
     },
     img: {
-        width: 300,
+        width: 350,
         height: 300
     },
     texto: {
