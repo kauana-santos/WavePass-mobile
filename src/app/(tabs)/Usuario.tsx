@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {Text, View, StyleSheet,TouchableOpacity, Alert, ActivityIndicator} from "react-native";
 import Header from "@/components/Header/Header";
 import { fonts } from "@/styles/globalStyles";
-import Menu from "@/components/Menu";
 import { Feather } from "@react-native-vector-icons/feather";
 import { router } from "expo-router"; 
 export default function Usuario() {

@@ -16,7 +16,6 @@ export default function login() {
             <View style={styles.input}>
                 <Text style={styles.label}>Senha</Text>
                 <TextInput style={styles.formInput} placeholder="Senha"/>
-                <Text style={styles.senha}>Esqueceu a senha?</Text>
             </View>
 
             <View style={styles.input}>
