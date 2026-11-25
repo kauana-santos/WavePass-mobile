@@ -1,7 +1,40 @@
-import { Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { ActivityIndicator, Alert, Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { fonts } from '@/styles/globalStyles'
+import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import { useRouter } from "expo-router";
 
 export default function login() {
+    const { onLogin } = useAuth();
+    const router = useRouter();
+
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [loading, setLoading] = useState(false)
+
+    const handleLogin = async () => {
+        if(!email || !password){
+            Alert.alert("O preenchimento é obrigatório")
+            return
+        }
+
+        try {
+            setLoading(true)
+            const result = await onLogin?.(email,password)
+
+            if (result?.error) {
+                Alert.alert("Erro", result.msg)
+                return
+            }
+
+            router.replace("/(tabs)");
+        } catch(error){
+            Alert.alert("Erro", "Não foi possível realizar o login.");
+        } finally{
+            setLoading(false)
+        }
+    }
+
   return (
     <View style={styles.container}>
         <View style={styles.containerImage}>
@@ -11,16 +44,31 @@ export default function login() {
         <View style={styles.form}>
             <View style={styles.input}>
                 <Text style={styles.label}>E-mail</Text>
-                <TextInput style={styles.formInput} placeholder="Digite seu e-mail"/>
+                <TextInput 
+                value={email}
+                onChangeText={setEmail}
+                style={styles.formInput} 
+                placeholder="Digite seu e-mail"/>
             </View>
             <View style={styles.input}>
                 <Text style={styles.label}>Senha</Text>
-                <TextInput style={styles.formInput} placeholder="Senha"/>
+                <TextInput
+                value={password} 
+                onChangeText={setPassword}
+                style={styles.formInput} 
+                placeholder="Senha"/>
             </View>
 
             <View style={styles.input}>
-                <Pressable style={styles.btnEntrar}>
-                    <Text style={styles.btnTexto}>Entrar</Text>
+                <Pressable 
+                onPress={handleLogin}
+                disabled={loading}
+                style={styles.btnEntrar}>
+                    {loading ? (
+                    <ActivityIndicator color="#FFF" />
+                    ) : (
+                        <Text style={styles.btnTexto}>Entrar</Text>
+                    )}
                 </Pressable>
                 <Text style={styles.textConta}>Não tem conta? Cadastre-se</Text>
                 
