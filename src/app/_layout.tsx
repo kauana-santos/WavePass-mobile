@@ -15,7 +15,7 @@ export default function RootLayout() {
   if (!fontsLoaded && !fontError) {
     return null;
   }
-
+  // Adicionar <AuthProvider> para configurar as rotas e poder seguir com integração
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <QueryClientProvider client={queryClient}>
