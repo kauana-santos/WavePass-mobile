@@ -1,14 +1,6 @@
 
 import { Link, useRouter } from "expo-router";
-import {
-    Alert,
-    Image,
-    Pressable,
-    StyleSheet,
-    Text,
-    TextInput,
-    View
-} from "react-native";
+import {Alert, Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 import { fonts } from "@/styles/globalStyles";
 import { useAuth } from "../context/AuthContext";
@@ -16,24 +8,30 @@ import { useState } from "react";
 
 export default function Signup() {
 
+    
+
     const { onRegister } = useAuth();
     const router = useRouter();
 
+    const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [senha, setSenha] = useState("");
+    const [cpf, setCpf] = useState("");
+    const [telefone, setTelefone] = useState("");
+    const [dataNascimento, setDataNascimento] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [loading, setLoading] = useState(false);
 
     const handleSingup = async () => {
 
         // Verifica se todos os campos foram preenchidos
-        if (!email || !password || !confirmPassword) {
+        if (!email || !senha|| !confirmPassword) {
             Alert.alert("Atenção", "O preenchimento é obrigatório.");
             return;
         }
 
         // Verifica se as senhas são iguais
-        if (password !== confirmPassword) {
+        if (senha!== confirmPassword) {
             Alert.alert("Atenção", "As senhas não coincidem.");
             return;
         }
@@ -46,7 +44,7 @@ export default function Signup() {
                 return;
             }
 
-            const result = await onRegister(email, password);
+            const result = await onRegister(email, senha, cpf, telefone, dataNascimento, nome);
 
             if (result?.error) {
                 Alert.alert("Erro", result.msg);
@@ -63,9 +61,12 @@ export default function Signup() {
                     }
                 ]
             );
-
+            setNome("")
             setEmail("");
-            setPassword("");
+            setSenha("");
+            setDataNascimento("");
+            setTelefone("");
+            setCpf("");
             setConfirmPassword("");
 
         } catch (error) {
@@ -86,23 +87,36 @@ export default function Signup() {
             <View style={style.containerForm}>
 
                 <View style={style.inputContainer}>
+                    <Text style={style.formLabel}>Nome</Text>
+
+                    <TextInput
+                        value={nome}
+                        onChangeText={setNome}
+                        style={style.formInput}
+                        placeholder="Digite seu nome"
+                    />
+                </View>
+
+                <View style={style.inputContainer}>
                     <Text style={style.formLabel}>E-mail</Text>
 
                     <TextInput
-                        value={email}
-                        onChangeText={setEmail}
-                        style={style.formInput}
-                        placeholder="Digite seu e-mail"
-                        keyboardType="email-address"
-                        autoCapitalize="none"/>
+                    value={email}
+                    onChangeText={setEmail}
+                    style={style.formInput}
+                    placeholder="Digite seu e-mail"
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    />
                 </View>
 
                 <View style={style.inputContainer}>
                     <Text style={style.formLabel}>Senha</Text>
 
                     <TextInput
-                        value={password}
-                        onChangeText={setPassword}
+                        value={senha}
+                        onChangeText={setSenha}
                         style={style.formInput}
                         placeholder="Senha"
                         secureTextEntry/>
