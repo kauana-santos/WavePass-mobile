@@ -9,18 +9,18 @@ interface EventoCardProps {
   onPress?: () => void;
 }
 
-// {imagem, titulo, local, data, onPress}: EventoCardProps
+ 
 
-export default function EventoCard() {
+export default function EventoCard({imagem, titulo, local, data, onPress}: EventoCardProps) {
   return (
-    <Pressable style={styles.containerEvento}>
+    <Pressable style={styles.containerEvento} onPress={onPress}>
       <View>
-        <Image style={styles.eventoImg} source={{uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStoifDEIk97WuePRZ4WpOzsZo7QxMDy4xQC7z3_6NQDogYtOo8N6o_-Ek&s=10"}}/>
+        <Image style={styles.eventoImg} source={{uri: imagem}}/>
       </View>
         <View style={styles.conatinerDescricao}>
-          <Text style={styles.titulo}>Wicked: A História Não Contada Das Bruxas de Oz</Text>
-          <Text style={styles.descricao}>São Paulo</Text>
-          <Text style={styles.descricao}>06/01/2027</Text>
+          <Text style={styles.titulo}>{titulo}</Text>
+          <Text style={styles.descricao}>{local}</Text>
+          <Text style={styles.descricao}>{data}</Text>
         </View>
     </Pressable>
   )

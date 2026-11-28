@@ -1,26 +1,76 @@
-
-import CategoriaCard from "@/components/CategoriaCard/CategoriaCard";
-import { Text, View, ScrollView, Image, StyleSheet } from "react-native";
+import { useEffect, useState } from "react";
+import { ActivityIndicator, Alert, Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import MarqueeComponente from "@/components/Marquee/MarqueeComponente";
+
 import CarouselComponente from "@/components/CarroselComponente/CarouselComponente";
+import CategoriaCard from "@/components/CategoriaCard/CategoriaCard";
 import EventoCard from "@/components/EventoCard/EventoCard";
-import { fonts } from '@/styles/globalStyles'
 import Header from "@/components/Header/Header";
+import MarqueeComponente from "@/components/Marquee/MarqueeComponente";
+import { listarEventos } from "../../services/eventoService";
 
+import { fonts } from '@/styles/globalStyles';
+import Paginacao from "@/components/Paginacao/Paginacao";
 
-const data = ["Wicked: A História Não Contada Das Bruxas de Oz", "item2", "item3"];
 const categorias = [
-  { id: 1, nome: "Shows", imagem: require("@/assets/images/mascotes/shows.png") },
-  { id: 2, nome: "Festas", imagem: require("@/assets/images/mascotes/DISCO.png") },
-  { id: 3, nome: "Teatros", imagem: require("@/assets/images/mascotes/teatro.png") },
-  { id: 4, nome: "Exposições", imagem: require("@/assets/images/mascotes/artes.png") },
-  { id: 5, nome: "Jogos", imagem: require("@/assets/images/mascotes/jogos.png") },
-  { id: 6, nome: "Filmes", imagem: require("@/assets/images/mascotes/cinema.png") },
-  { id: 7, nome: "Gastronomia", imagem: require("@/assets/images/mascotes/gastronomia.png") },
+    { id: 1, nome: "Shows", categoriaApi: "SHOWS", imagem: require("@/assets/images/mascotes/shows.png") },
+    { id: 2, nome: "Festas", categoriaApi: "FESTAS", imagem: require("@/assets/images/mascotes/DISCO.png") },
+    { id: 3, nome: "Teatros", categoriaApi: "TEATRO", imagem: require("@/assets/images/mascotes/teatro.png") },
+    { id: 4, nome: "Exposições", categoriaApi: "EXPOSICOES", imagem: require("@/assets/images/mascotes/artes.png") },
+    { id: 5, nome: "Jogos", categoriaApi: "JOGOS", imagem: require("@/assets/images/mascotes/jogos.png") },
+    { id: 6, nome: "Filmes", categoriaApi: "CINEMA", imagem: require("@/assets/images/mascotes/cinema.png") },
+    { id: 7, nome: "Gastronomia", categoriaApi: "GASTRONOMIA", imagem: require("@/assets/images/mascotes/gastronomia.png") },
 ];
 
+interface Evento {
+    id: number;
+    nome: string;
+    cidade: string;
+    estado: string;
+    imagemCard: string;
+    imagemBanner?: string;
+    sessoes: {
+        id: number;
+        dataHora: string;
+    }[];
+}
+
 export default function Index() {
+  const [eventos, setEventos] = useState<Evento[]>([]);
+  const [carregando, setCarregando] =useState(false);
+  const [categoriaSelecionada, setCategoriaSelecionada] = useState<string | null>(null)
+
+  const [paginaAtual, setPaginaAtual] = useState(0);
+  const [totalPaginas, setTotalPaginas] = useState(0);
+
+  async function buscarEventos(categoria?: string, pagina = 0){
+    try{
+      setCarregando(true);
+      const resultado = await listarEventos(
+        categorias ? {categoria} : {}, pagina
+      );
+      setEventos(resultado.content)
+      setTotalPaginas(resultado.totalPages)
+      setPaginaAtual(resultado.number)
+    } catch(error){
+      console.log("Erro ao buscar eventos:", error);
+      Alert.alert("Erro", "Não foi possível carregar os eventos.");
+    } finally{
+      setCarregando(false)
+    }
+  }
+
+  useEffect(() => {
+    buscarEventos();
+  }, [])
+
+  function selecionarCategoria(categoria: string) {
+    const novaCategoria = categoriaSelecionada === categoria ? null : categoria;
+
+    setCategoriaSelecionada(novaCategoria);
+    buscarEventos(novaCategoria ?? undefined);
+  }
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ScrollView>
@@ -30,21 +80,30 @@ export default function Index() {
           <MarqueeComponente/>
 
           <CarouselComponente 
-            data={data}
+            data={eventos}
             height={300}
             width={360}
             autoPlay
-            renderItem={({ item }) => (
-              <View style={styles.containerCarrosel}>
+            renderItem={({ item }) => {
+              const dataHora = item.sessoes?.[0]?.dataHora;
+
+              return(
+                <View style={styles.containerCarrosel}>
                 
-                <Image style={styles.CarroselImg} source={{uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStoifDEIk97WuePRZ4WpOzsZo7QxMDy4xQC7z3_6NQDogYtOo8N6o_-Ek&s=10"}}/>
+                <Image style={styles.CarroselImg} source={{uri:item.imagemBanner || item.imagemCard}}/>
 
-                <Text style={styles.carroselText}>{item}</Text>
+                <Text style={styles.carroselText}>{item.nome}</Text>
 
-                <Text style={styles.carroselText}>Local . Horário . Data</Text>
+                <Text style={styles.carroselText}>{item.cidade} - {item.estado}</Text>
 
+                <Text style={styles.carroselText}>
+                  {dataHora
+                    ? new Date(dataHora).toLocaleString("pt-BR")
+                    : "Data não informada"}
+                </Text>
               </View>
-            )}
+              )
+            }}
           />
 
           <View>
@@ -52,7 +111,12 @@ export default function Index() {
             
             <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.containerCategorias}>
               {categorias.map((cat) => (
-                <CategoriaCard key={cat.id} categoryName={cat.nome} icon={cat.imagem}/>
+                <CategoriaCard 
+                key={cat.id} 
+                categoryName={cat.nome} 
+                icon={cat.imagem}
+                onPress={()=> selecionarCategoria(cat.categoriaApi)}
+                selecionado={categoriaSelecionada === cat.categoriaApi}/>
               ))}
             </ScrollView>
           </View>
@@ -62,9 +126,28 @@ export default function Index() {
           <Text style={styles.titulo}>Eventos</Text>
 
           <View style={styles.containerEventos}>
-            <EventoCard/>
-            <EventoCard/>
+            {carregando ? (
+              <ActivityIndicator size="large" color="#722F37"/>
+            ): eventos.length > 0 ? (
+              eventos.map((evento) => (
+                <EventoCard
+                key={evento.id}
+                imagem={evento.imagemCard}
+                titulo={evento.nome}
+                local={`${evento.cidade} - ${evento.estado}`}
+                data={
+                    evento.sessoes?.[0]?.dataHora
+                        ? new Date(evento.sessoes[0].dataHora).toLocaleDateString("pt-BR")
+                        : "Data não informada"
+                }/>
+              )) 
+            ): ( <Text>Não foi possivel listar os eventos</Text>)}
+            
           </View>
+          <Paginacao 
+          paginaAtual={paginaAtual}
+          totalPaginas={totalPaginas}
+          onPageChange={(pagina) => buscarEventos(categoriaSelecionada ?? undefined, pagina)}/>
         </View>
       </ScrollView>
     </GestureHandlerRootView>
