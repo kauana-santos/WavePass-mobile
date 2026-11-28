@@ -10,8 +10,8 @@ import MarqueeComponente from "@/components/Marquee/MarqueeComponente";
 import { listarEventos } from "../../services/eventoService";
 
 import { fonts } from '@/styles/globalStyles';
+import Paginacao from "@/components/Paginacao/Paginacao";
 
-const data = ["Wicked: A História Não Contada Das Bruxas de Oz", "item2", "item3"];
 const categorias = [
     { id: 1, nome: "Shows", categoriaApi: "SHOWS", imagem: require("@/assets/images/mascotes/shows.png") },
     { id: 2, nome: "Festas", categoriaApi: "FESTAS", imagem: require("@/assets/images/mascotes/DISCO.png") },
@@ -40,13 +40,18 @@ export default function Index() {
   const [carregando, setCarregando] =useState(false);
   const [categoriaSelecionada, setCategoriaSelecionada] = useState<string | null>(null)
 
-  async function buscarEventos(categoria?: string){
+  const [paginaAtual, setPaginaAtual] = useState(0);
+  const [totalPaginas, setTotalPaginas] = useState(0);
+
+  async function buscarEventos(categoria?: string, pagina = 0){
     try{
       setCarregando(true);
       const resultado = await listarEventos(
-        categorias ? {categoria} : {}
+        categorias ? {categoria} : {}, pagina
       );
       setEventos(resultado.content)
+      setTotalPaginas(resultado.totalPages)
+      setPaginaAtual(resultado.number)
     } catch(error){
       console.log("Erro ao buscar eventos:", error);
       Alert.alert("Erro", "Não foi possível carregar os eventos.");
@@ -136,9 +141,13 @@ export default function Index() {
                         : "Data não informada"
                 }/>
               )) 
-            ): ( <Text></Text>)}
+            ): ( <Text>Não foi possivel listar os eventos</Text>)}
             
           </View>
+          <Paginacao 
+          paginaAtual={paginaAtual}
+          totalPaginas={totalPaginas}
+          onPageChange={(pagina) => buscarEventos(categoriaSelecionada ?? undefined, pagina)}/>
         </View>
       </ScrollView>
     </GestureHandlerRootView>
