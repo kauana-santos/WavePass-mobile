@@ -4,12 +4,14 @@ import { fonts } from '@/styles/globalStyles'
 
 interface CardProps{
     icon: any;
-    categoryName: string
+    categoryName: string;
+    onPress:() => void;
+    selecionado?: boolean
 }
 
-export default function CategoriaCard({ icon, categoryName }: CardProps) {
+export default function CategoriaCard({ icon, categoryName, onPress, selecionado }: CardProps) {
   return (
-    <Pressable style={style.containerCategory}>
+    <Pressable style={[style.containerCategory, selecionado && style.selecionada]} onPress={onPress}>
       <Image style={style.iconImg} source={icon}/>
       <Text style={style.texto}>{categoryName}</Text>
     </Pressable>
@@ -28,6 +30,10 @@ const style = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#3F3F3F"
   },
+  selecionada: {
+    borderColor: "#722F37",
+    borderWidth: 3
+    },
   iconImg:{
     height:100,
     width:100

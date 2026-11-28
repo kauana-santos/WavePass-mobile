@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL } from "../context/AuthContext";
+import { API_URL } from "../app/context/AuthContext";
 
 export interface filtros{
     nome?: string;
@@ -11,7 +11,7 @@ export interface filtros{
 }
 
 export async function listarEventos(filtros?: filtros, pagina =0){
-    const resposta = await axios.get(`${API_URL}/api/wavepass/eventos`, {
+    const resposta = await axios.get(`${API_URL}/api/wavepass/evento`, {
         params:{
             ...filtros,
             page: pagina,
