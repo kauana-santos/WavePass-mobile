@@ -28,6 +28,7 @@ interface Evento {
     cidade: string;
     estado: string;
     imagemCard: string;
+    imagemBanner?: string;
     sessoes: {
         id: number;
         dataHora: string;
@@ -74,21 +75,30 @@ export default function Index() {
           <MarqueeComponente/>
 
           <CarouselComponente 
-            data={data}
+            data={eventos}
             height={300}
             width={360}
             autoPlay
-            renderItem={({ item }) => (
-              <View style={styles.containerCarrosel}>
+            renderItem={({ item }) => {
+              const dataHora = item.sessoes?.[0]?.dataHora;
+
+              return(
+                <View style={styles.containerCarrosel}>
                 
-                <Image style={styles.CarroselImg} source={{uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStoifDEIk97WuePRZ4WpOzsZo7QxMDy4xQC7z3_6NQDogYtOo8N6o_-Ek&s=10"}}/>
+                <Image style={styles.CarroselImg} source={{uri:item.imagemBanner || item.imagemCard}}/>
 
-                <Text style={styles.carroselText}>{item}</Text>
+                <Text style={styles.carroselText}>{item.nome}</Text>
 
-                <Text style={styles.carroselText}>Local . Horário . Data</Text>
+                <Text style={styles.carroselText}>{item.cidade} - {item.estado}</Text>
 
+                <Text style={styles.carroselText}>
+                  {dataHora
+                    ? new Date(dataHora).toLocaleString("pt-BR")
+                    : "Data não informada"}
+                </Text>
               </View>
-            )}
+              )
+            }}
           />
 
           <View>
