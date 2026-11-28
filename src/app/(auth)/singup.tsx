@@ -1,6 +1,6 @@
 
 import { Link, useRouter } from "expo-router";
-import {Alert, Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import {Alert, Image, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 
 import { fonts } from "@/styles/globalStyles";
 import { useAuth } from "../context/AuthContext";
@@ -44,7 +44,7 @@ export default function Signup() {
                 return;
             }
 
-            const result = await onRegister(email, senha, cpf, telefone, dataNascimento, nome);
+            const result = await onRegister(nome, email.trim().toLowerCase(), cpf, telefone, dataNascimento, senha);
 
             if (result?.error) {
                 Alert.alert("Erro", result.msg);
@@ -78,7 +78,7 @@ export default function Signup() {
     };
 
     return (
-        <View style={style.container}>
+        <ScrollView style={style.container}>
 
             <View style={style.containerImage}>
                 <Image source={require("@/assets/logo.png")} />
@@ -108,6 +108,40 @@ export default function Signup() {
                     keyboardType="email-address"
                     autoCapitalize="none"
                     autoCorrect={false}
+                    />
+                </View>
+                <View style={style.inputContainer}>
+                    <Text style={style.formLabel}>CPF</Text>
+                    <TextInput
+                        value={cpf}
+                        onChangeText={setCpf}
+                        style={style.formInput}
+                        placeholder="Digite seu CPF"
+                        keyboardType="numeric"
+                        maxLength={11}
+                    />
+                </View>
+
+                <View style={style.inputContainer}>
+                    <Text style={style.formLabel}>Telefone</Text>
+                    <TextInput
+                        value={telefone}
+                        onChangeText={setTelefone}
+                        style={style.formInput}
+                        placeholder="Digite seu telefone"
+                        keyboardType="phone-pad"
+                    />
+                </View>
+
+                <View style={style.inputContainer}>
+                    <Text style={style.formLabel}>Data de nascimento</Text>
+                    <TextInput
+                        value={dataNascimento}
+                        onChangeText={setDataNascimento}
+                        style={style.formInput}
+                        placeholder="AAAA-MM-DD"
+                        keyboardType="numeric"
+                        maxLength={10}
                     />
                 </View>
 
@@ -152,7 +186,7 @@ export default function Signup() {
 
             </View>
 
-        </View>
+        </ScrollView>
     );
 }
 
@@ -160,14 +194,17 @@ const style = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#F5E6C8",
+        
+    },
+    containerImage: {
+        height: 130,
         alignItems: "center",
         justifyContent: "center",
     },
-    containerImage: {
-        height: 130
-    },
 
     containerForm: {
+        alignItems: "center",
+        justifyContent: "center",
         marginHorizontal: 10,
         marginVertical:20,
         padding: 5

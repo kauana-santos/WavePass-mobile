@@ -34,6 +34,7 @@ const AuthContext = createContext<AuthProps>({});
 export const useAuth = () => {
     return useContext(AuthContext);
 };
+
 const getToken = async () => {
     if (Platform.OS === "web") {
         return localStorage.getItem(TOKEN_KEY);
@@ -73,8 +74,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             try {
                 const token = await getToken();
 
-                console.log("Guardado:", token);
-
                 if (token) {
                     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
@@ -90,8 +89,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                 }
 
             } catch (error) {
-                console.log("Erro ao recuperar token:", error);
-
                 setAuthState({
                     token: null,
                     autenticado: false
@@ -102,49 +99,32 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         loadToken();
     }, []);
 
-    const register = async (
-    nome: string,
-    email: string,
-    cpf: string,
-    telefone: string,
-    dataNascimento: string,
-    senha: string
-    ) => {
+    const register = async (nome: string, email: string, cpf: string, telefone: string, dataNascimento: string, senha: string) => {
         try {
-            const result = await axios.post(
-                `${API_URL}/api/wavepass/usuario/registerClient`,
-                {nome, email, cpf: cpf || null, telefone: telefone || null, dataNascimento: dataNascimento || null, senha}
-            );
+            const dadosCadastro = {
+                nome: nome.trim(),
+                email: email.trim().toLowerCase(),
+                cpf: cpf.replace(/\D/g, "") || null,
+                telefone: telefone.replace(/\D/g, "") || null,
+                dataNascimento: dataNascimento.trim() || null,
+                senha
+            };
 
-            console.log("Cadastro realizado:", result.data);
+            const result = await axios.post(`${API_URL}/api/wavepass/usuario/registerClient`, dadosCadastro);
 
             return result.data;
 
         } catch (e: any) {
-            console.log("Erro no cadastro:", e.response?.status);
-            console.log("Detalhes:", e.response?.data);
-
             return {
                 error: true,
-                msg:
-                    e.response?.data?.message ||
-                    e.response?.data?.mensagem ||
-                    e.response?.data?.msg ||
-                    "Erro ao realizar cadastro."
+                msg: e.response?.data?.message || e.response?.data?.mensagem || e.response?.data?.msg || "Erro ao realizar cadastro."
             };
         }
     };
 
-
     const login = async (email: string, senha: string) => {
         try {
-            const result = await axios.post(
-                `${API_URL}/api/wavepass/usuario/login`,
-                {
-                    email,
-                    senha
-                }
-            );
+            const result = await axios.post(`${API_URL}/api/wavepass/usuario/login`, { email, senha });
 
             const token = result.data.token;
 
@@ -152,12 +132,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                 throw new Error("Token não retornado pelo servidor.");
             }
 
-            // Salva o token
             await saveToken(token);
 
-            // Configura o token para as próximas requisições
-            axios.defaults.headers.common["Authorization"] =
-                `Bearer ${token}`;
+            axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
             setAuthState({
                 token,
@@ -167,17 +144,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             return result.data;
 
         } catch (e: any) {
-            console.log("Erro no login:", e.response?.data || e.message);
-
             return {
                 error: true,
-                msg: e.response?.data?.message ||
-                    e.response?.data?.mensagem ||
-                    "Erro ao realizar login."
+                msg: e.response?.data?.message || e.response?.data?.mensagem || "Erro ao realizar login."
             };
         }
     };
-
 
     const logout = async () => {
         await removeToken();
