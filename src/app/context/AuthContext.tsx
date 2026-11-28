@@ -10,7 +10,14 @@ interface AuthProps {
         autenticado: boolean | null;
     };
 
-    onRegister?: (email: string, senha: string) => Promise<any>;
+    onRegister?: (
+        nome: string,
+        email: string,
+        cpf: string,
+        telefone: string,
+        dataNascimento: string,
+        senha: string
+    ) => Promise<any>;
     onLogin?: (email: string, password: string) => Promise<any>;
     onLogout?: () => Promise<any>;
 }
@@ -27,6 +34,7 @@ const AuthContext = createContext<AuthProps>({});
 export const useAuth = () => {
     return useContext(AuthContext);
 };
+
 const getToken = async () => {
     if (Platform.OS === "web") {
         return localStorage.getItem(TOKEN_KEY);
@@ -66,8 +74,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             try {
                 const token = await getToken();
 
-                console.log("Guardado:", token);
-
                 if (token) {
                     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
@@ -83,8 +89,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                 }
 
             } catch (error) {
-                console.log("Erro ao recuperar token:", error);
-
                 setAuthState({
                     token: null,
                     autenticado: false
@@ -95,47 +99,54 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         loadToken();
     }, []);
 
-    const register = async (email: string, senha: string) => {
+    const register = async (nome: string, email: string, cpf: string, telefone: string, dataNascimento: string, senha: string) => {
         try {
-            return await axios.post(`${API_URL}/api/wavepass/usuario/registerClient`, {
-                email,
+            const dadosCadastro = {
+                nome: nome.trim(),
+                email: email.trim().toLowerCase(),
+                cpf: cpf.replace(/\D/g, "") || null,
+                telefone: telefone.replace(/\D/g, "") || null,
+                dataNascimento: dataNascimento.trim() || null,
                 senha
-            });
+            };
+
+            const result = await axios.post(`${API_URL}/api/wavepass/usuario/registerClient`, dadosCadastro);
+
+            return result.data;
 
         } catch (e: any) {
             return {
                 error: true,
-                msg: e.response?.data?.msg || "Erro ao realizar cadastro."
+                msg: e.response?.data?.message || e.response?.data?.mensagem || e.response?.data?.msg || "Erro ao realizar cadastro."
             };
         }
     };
 
-    const login = async (email: string, password: string) => {
+    const login = async (email: string, senha: string) => {
         try {
-            const result = await axios.post(
-                `${API_URL}/api/wavepass/auth/`,
-                {
-                    email,
-                    password
-                }
-            );
+            const result = await axios.post(`${API_URL}/api/wavepass/usuario/login`, { email, senha });
+
+            const token = result.data.token;
+
+            if (!token) {
+                throw new Error("Token não retornado pelo servidor.");
+            }
+
+            await saveToken(token);
+
+            axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
             setAuthState({
-                token: result.data.token,
+                token,
                 autenticado: true
             });
 
-            axios.defaults.headers.common["Authorization"] =
-                `Bearer ${result.data.token}`;
-
-            await saveToken(result.data.token);
-
-            return result;
+            return result.data;
 
         } catch (e: any) {
             return {
                 error: true,
-                msg: e.response?.data?.msg || "Erro ao realizar login."
+                msg: e.response?.data?.message || e.response?.data?.mensagem || "Erro ao realizar login."
             };
         }
     };

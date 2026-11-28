@@ -2,7 +2,7 @@ import { ActivityIndicator, Alert, Image, Pressable, StyleSheet, Text, TextInput
 import { fonts } from '@/styles/globalStyles'
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { useRouter } from "expo-router";
+import { Link, useRouter } from "expo-router";
 
 export default function login() {
     const { onLogin } = useAuth();
@@ -70,7 +70,7 @@ export default function login() {
                         <Text style={styles.btnTexto}>Entrar</Text>
                     )}
                 </Pressable>
-                <Text style={styles.textConta}>Não tem conta? Cadastre-se</Text>
+                <Text style={styles.textConta}>Não tem conta? <Link href="/(auth)/singup">Cadastre-se</Link></Text>
                 
             </View>
         </View>
